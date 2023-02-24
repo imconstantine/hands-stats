@@ -98,8 +98,9 @@ handsStore.$onAction(async ({ name, after }) => {
   if (!['pickPlayer'].includes(name)) {
     return
   }
-
+  console.log('onAction triggered')
   after(async (result) => {
+    console.log('called')
     await fetchHands();
   })
 })
