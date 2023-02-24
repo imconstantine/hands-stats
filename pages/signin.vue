@@ -35,13 +35,10 @@
 
 <script setup lang="ts">
 import { FormInstance, FormRules } from 'element-plus';
-import { useHandsStore } from '@/stores/hands';
 
 const client = useSupabaseAuthClient();
-const db = useSupabaseClient()
 const user = useSupabaseUser();
 const router = useRouter();
-const handsStore = useHandsStore();
 
 const ruleFormRef = ref<FormInstance>()
 const loading = ref(false)
@@ -53,8 +50,8 @@ watchEffect(() => {
 })
 
 const form = reactive({
-  login: '1234567',
-  password: '1234567',
+  login: '',
+  password: '',
 })
 
 const rules = reactive<FormRules>({

@@ -37,7 +37,6 @@ function format(hand) {
     hand: sortedHand,
     at: hand[5]
   }
-  // return (isSuited(hand) ? sortedHand[0] + sortedHand[1] : sortedHand[1] + sortedHand[0]) + (isPocket(hand) ? '' : isSuited(hand) ? 's' : 'o')
 }
 
 function replaceTens(entries) {
