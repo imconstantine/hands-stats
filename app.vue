@@ -3,6 +3,7 @@ import { useHandsStore } from './stores/hands';
 
 const handsStore = useHandsStore();
 const db = useSupabaseClient();
+const user = useSupabaseUser();
 
 useSupabaseAuthClient().auth.onAuthStateChange(async (event, session) => {
   if (event === 'SIGNED_IN') {
@@ -12,6 +13,11 @@ useSupabaseAuthClient().auth.onAuthStateChange(async (event, session) => {
     handsStore.setPlayers(data.map(item => item.name));
   }
 });
+
+if (process.client) {
+  console.log('name', user.value.user_metadata.name)
+  handsStore.pickPlayer(user.value.user_metadata.name || '')
+}
 </script>
 
 <template>
