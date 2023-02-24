@@ -104,8 +104,9 @@ handsStore.$onAction(async ({ name, after }) => {
   })
 })
 
-const nuxt = useNuxt();
-nuxt.hook('app:mounted', async () => await fetchHands())
+onMounted(async () => {
+  await fetchHands()
+})
 
 const handsArray = ref([]);
 const maxCount = ref(0);
