@@ -14,10 +14,6 @@ useSupabaseAuthClient().auth.onAuthStateChange(async (event, session) => {
   }
 });
 
-if (process.client) {
-  console.log('name', user.value.user_metadata.name)
-  handsStore.pickPlayer(user.value.user_metadata.name || '')
-}
 </script>
 
 <template>

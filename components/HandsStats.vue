@@ -95,16 +95,15 @@ const user = useSupabaseUser();
 const handsStore = useHandsStore();
 
 handsStore.$onAction(async ({ name, after }) => {
-  console.log('action', name)
   if (!['pickPlayer'].includes(name)) {
     return
   }
-  console.log('onAction triggered')
   after(async (result) => {
-    console.log('called')
     await fetchHands();
   })
 })
+
+await fetchHands(user.value.user_metadata.name || '');
 
 const handsArray = ref([]);
 const maxCount = ref(0);
