@@ -60,7 +60,7 @@
       </el-row>
     </div>
     <client-only>
-      <v-chart class="chart" :option="option" @rendered="fetchHands" theme="purple-passion" autoresize />
+      <v-chart class="chart" :option="option" theme="purple-passion" autoresize />
     </client-only>
   </div>
 </template>
@@ -105,7 +105,7 @@ handsStore.$onAction(async ({ name, after }) => {
 })
 
 const nuxt = useNuxt();
-nuxt.hook('page:finish', async () => await fetchHands())
+nuxt.hook('app:mounted', async () => await fetchHands())
 
 const handsArray = ref([]);
 const maxCount = ref(0);
