@@ -95,6 +95,7 @@ const user = useSupabaseUser();
 const handsStore = useHandsStore();
 
 handsStore.$onAction(async ({ name, after }) => {
+  console.log('action', name)
   if (!['pickPlayer'].includes(name)) {
     return
   }
