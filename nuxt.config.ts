@@ -26,9 +26,9 @@ export default defineNuxtConfig({
   },
 
   routeRules: {
-    '/': { static: true },
-    '/signup': { static: true },
-    '/signin': { static: true }
+    '/': { ssr: true  },
+    '/signup': { ssr: true },
+    '/signin': { ssr: true }
   },
 
   // css
