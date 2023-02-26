@@ -6,9 +6,6 @@ export default defineNuxtRouteMiddleware((to, from) => {
   const token = useSupabaseToken();
 
   if (!token.value) {
-    console.log('REDIRECT', token.value)
     return navigateTo('/signin');
-  } else {
-    console.log('NOT REDIRECT', token.value)
   }
 })
