@@ -5,8 +5,8 @@ export default defineNuxtRouteMiddleware(async (to, from) => {
 
   const user = useSupabaseUser()
   const token = useSupabaseToken();
-
-  if (!token.value) {
-    return await navigateTo('/signin');
-  }
+  console.log(user, token)
+  // if (!token.value) {
+  //   return await navigateTo('/signin');
+  // }
 })
