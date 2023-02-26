@@ -1,4 +1,4 @@
-export default defineNuxtRouteMiddleware((to, from) => {
+export default defineNuxtRouteMiddleware(async (to, from) => {
   if (['/signup', '/signin'].includes(to.path)) {
     return
   }
@@ -6,6 +6,6 @@ export default defineNuxtRouteMiddleware((to, from) => {
   const user = useSupabaseUser()
 
   if (!user.value) {
-    return navigateTo('/signin');
+    return await navigateTo('/signin');
   }
 })
