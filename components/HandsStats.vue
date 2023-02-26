@@ -104,10 +104,6 @@ handsStore.$onAction(async ({ name, after }) => {
   })
 })
 
-onMounted(async () => {
-  await fetchHands()
-})
-
 const handsArray = ref([]);
 const maxCount = ref(0);
 const maxHand = ref('-');
