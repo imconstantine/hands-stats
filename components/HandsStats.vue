@@ -79,7 +79,6 @@ import VChart from 'vue-echarts';
 import { Warning } from '@element-plus/icons-vue'
 import purplePassion from '@/utils/purple-passion.json';
 import { useHandsStore } from '@/stores/hands';
-import { useNuxt } from '@nuxt/kit';
 
 registerTheme('purple-passion', purplePassion);
 use([

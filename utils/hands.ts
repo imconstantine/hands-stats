@@ -16,17 +16,50 @@ const ranks = {
   '2': 0
 }
 
+const suitsReplaceLetter = {
+  '♣': 'c',
+  '♠': 's',
+  '♥': 'h',
+  '♦': 'd'
+}
+
 export async function parseHands(file?: File): Promise<Hand[]> {
+  if (!file) {
+    throw new Error('Missing file');
+  }
+
+  const array = [];
   const fileData = await file.arrayBuffer();
   const string = new TextDecoder('utf-8').decode(fileData);
-  const array = [];
 
-  for (const match of string.matchAll(HAND_REG_EX)) {
-    const hand = format(match);
-    array.push(hand);
+  if (hasExtensionOf(file, '.json')) {
+    const jsonHistory: History = JSON.parse(string);
+    jsonHistory.hands.forEach(item => {
+      const date = new Date(item.startedAt);
+      const player = item.players.find(player => player.id === jsonHistory.playerId);
+
+      if (!player) {
+        throw new Error('Id mismatch I guess');
+      }
+      
+      const hand = format([, ...player?.hand[0], ...player?.hand[1], date.toISOString()]);
+      array.push(hand);
+    })
+  } else if (hasExtensionOf(file, '.csv')) {
+    for (const match of string.matchAll(HAND_REG_EX)) {
+      replaceSuitsByLetters(match);
+      const hand = format(match);
+      array.push(hand);
+    }
+  } else {
+    throw new Error('Invalid file extension');
   }
 
   return array;
+}
+
+function hasExtensionOf(file: File, extension: string): boolean {
+  return file.name.endsWith(extension);
 }
 
 function format(hand) {
@@ -39,7 +72,12 @@ function format(hand) {
   }
 }
 
-function replaceTens(entries) {
+function replaceSuitsByLetters(entries: string[]) {
+  entries[2] = suitsReplaceLetter[entries[2]];
+  entries[4] = suitsReplaceLetter[entries[4]];
+}
+
+function replaceTens(entries: string[]) {
   entries[1] = entries[1].replace('10', 'T');
   entries[3] = entries[3].replace('10', 'T');
 }
@@ -49,4 +87,15 @@ type Card = { value: string; suit: string }
 export type Hand = {
   hand: Card[]
   at: string
+}
+
+type History = {
+  playerId: string;
+  hands: {
+    startedAt: number;
+    players: {
+      id: string;
+      hand: string[]
+    }[]
+  }[]
 }

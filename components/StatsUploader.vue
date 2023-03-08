@@ -1,13 +1,13 @@
 <template>
   <div class="upload-wrapper">
     <el-upload
-      accept=".csv"
+      accept=".csv,.json"
       :auto-upload="false"
       :show-file-list="false"
       :on-change="onChange"
     >
       <template #trigger>
-        <el-button plain bg>Open CSV</el-button>
+        <el-button plain bg>Open file</el-button>
       </template>
     </el-upload>
     <el-button v-if="isMobile" text bg @click="perchikiDrawer = true">Perchiki</el-button>
