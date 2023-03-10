@@ -34,17 +34,17 @@ export async function parseHands(file?: File): Promise<Hand[]> {
 
   if (hasExtensionOf(file, '.json')) {
     const jsonHistory: History = JSON.parse(string);
-    jsonHistory.hands.forEach(item => {
+    for (const item of jsonHistory.hands) {
       const date = new Date(item.startedAt);
       const player = item.players.find(player => player.id === jsonHistory.playerId);
 
       if (!player) {
-        throw new Error('Id mismatch I guess');
+        continue;
       }
       
       const hand = format([, ...player?.hand[0], ...player?.hand[1], date.toISOString()]);
       array.push(hand);
-    })
+    }
   } else if (hasExtensionOf(file, '.csv')) {
     for (const match of string.matchAll(HAND_REG_EX)) {
       replaceSuitsByLetters(match);
